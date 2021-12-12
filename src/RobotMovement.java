@@ -4,26 +4,31 @@ public class RobotMovement {
 
 
         Robot robot = new Robot();
-        System.out.println("Start:\n"+"Y="+robot.getY()+"\nX="+robot.getX()+"\nDirect="+robot.nowDirection+"\n");
+        System.out.println("Robot on position:\n"+"Y="+robot.getY()+"\nX="+robot.getX()+"\nDirect="+robot.nowDirection+"\n");
 
-        int targetX=2;
-        int targetY=3;
+        int targetY=-20;
+        int targetX=-30;
+
 
         System.out.println("Target coordinate:\n"+"Y="+targetY+"\nX="+targetX+"\n");
 
         moveRobot( robot,targetX, targetY);
 
+
+
        System.out.println("Result:\n"+"Y="+robot.getY()+"\nX="+robot.getX()+"\nDirect="+robot.nowDirection);
 
+        if (targetX== robot.getX()&&targetY== robot.getY()) {
+            System.out.println("robot on target");
+        } else System.out.println("robot missed");
 
     }
 
     public static class Robot  {
 
-        Direction nowDirection=Direction.UP;
-        int x = 0;
-        int y = 0;
-
+        Direction nowDirection=Direction.RIGHT;
+        int y = 3;
+        int x = -33;
 
         public Direction getDirection() {
             // текущее направление взгляда
@@ -92,14 +97,58 @@ public class RobotMovement {
 
     public static void moveRobot(Robot robot, int toX, int toY) {
 
-        robot.turnRight();
-        robot.stepForward();
-        robot.stepForward();
+       int diferentX = toX - robot.getX();
+       int diferentY = toY - robot.getY();
 
-        robot.turnLeft();
-        robot.stepForward();
-        robot.stepForward();
-        robot.stepForward();
+        //вывод диферента для отладки
+        System.out.println("вывод диферента для отладки:\n"+"dif Y="+diferentY+"\ndif X="+diferentX+"\nRobot direct="+robot.getDirection()+"\n");
+
+        switch (robot.getDirection()) {
+            case RIGHT: robot.turnLeft();
+                break;
+            case LEFT: robot.turnRight();
+                break;
+            case DOWN: robot.turnRight();
+                        robot.turnRight();
+                break;
+            default: break;
+        }
+
+
+       if (diferentY>=0) {
+           for (int i=0; i<=Math.abs(diferentY)-1; i++) {
+               robot.stepForward();
+           }
+       } else {
+           robot.turnLeft(); robot.turnLeft();
+           for (int i=0; i<=Math.abs(diferentY)-1; i++) {
+               robot.stepForward();
+           }
+        }
+
+
+        switch (robot.getDirection()) {
+              case DOWN: robot.turnRight();
+                robot.turnRight();
+                break;
+            default: break;
+        }
+
+
+        if (diferentX>=0) {
+            robot.turnRight();
+            for (int i=0; i<=Math.abs(diferentX)-1; i++) {
+                robot.stepForward();
+            }
+        } else {
+            robot.turnLeft();
+            for (int i=0; i<=Math.abs(diferentX)-1; i++) {
+                robot.stepForward();
+            }
+        }
+
+
+
 
 
 
