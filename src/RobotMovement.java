@@ -146,19 +146,6 @@ public class RobotMovement {
                 robot.stepForward();
             }
         }
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
 
 }
