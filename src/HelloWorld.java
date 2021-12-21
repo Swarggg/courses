@@ -54,26 +54,28 @@ public class HelloWorld {
         System.out.println("x+y="+(x+y));
         System.out.println("z="+Math.abs(z));
 */
+        Car car = new Car();
+
        public static void main(String[] args) {
 
 
-           System.out.println(doubleExpression(0.1, 0.2, 0.3));
+           System.out.println("bla");
 
+           Djiga.startEngine();
+           Car.startEngine();
 
-           System.out.println('A'+"12");
-           System.out.println("A" + 12);
-           System.out.println( 'A' + '1' + "2");
-           System.out.println( "A" + ('\t' + '\u0003') );
+          // car.headLights();
 
        }
 
-        public static boolean doubleExpression (double ax, double bx, double cx) {
 
 
 
-            return Math.abs((ax + bx) - cx) < 0.00001;
+        public static class Djiga extends Car {
+            public static void  startEngine () {
+                System.out.println("Врум как Жига");
 
-            //return (cx-bx-ax)<0.00001;
+            }
         }
 
 
