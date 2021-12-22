@@ -23,19 +23,27 @@ public class AsciiCharSequence implements CharSequence {
     @Override
     public int length() {
         int lengthOfStringed = b.length;
-
         return lengthOfStringed;
     }
 
     @Override
-    public char charAt(int index) {
-        return 0;
+    public CharSequence subSequence(int start, int end) {
+
+        AsciiCharSequence z = new AsciiCharSequence(b);
+        for (int i=start; i<(end-1); i++) {
+
+        }
+
+        return z;
     }
 
+
     @Override
-    public CharSequence subSequence(int start, int end) {
-        return null;
+    public char charAt(int index) {
+        return (char)b[index];
     }
+
+
 
 
 
