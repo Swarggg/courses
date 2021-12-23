@@ -12,12 +12,12 @@ public class AsciiCharSequence implements CharSequence {
 
     @Override
     public String toString () {
-        String stringedByteMassive="";
+       StringBuilder d= new StringBuilder();
         for (int i=0; i<b.length; i++) {
+            d.append((char)this.b[i]);
 
-            stringedByteMassive += Byte.toString(b[i]);
                 }
-        return stringedByteMassive;
+        return d.toString();
     }
 
     @Override
@@ -27,14 +27,11 @@ public class AsciiCharSequence implements CharSequence {
     }
 
     @Override
-    public CharSequence subSequence(int start, int end) {
+    public AsciiCharSequence subSequence(int start, int end) {
 
-        AsciiCharSequence z = new AsciiCharSequence(b);
-        for (int i=start; i<(end-1); i++) {
-
-        }
-
-        return z;
+        byte[] z= new byte[end-start];
+       for (int i=0; i<end-start; i++) {z[i]=b[i+start];}
+        return new AsciiCharSequence(z);
     }
 
 
@@ -42,11 +39,6 @@ public class AsciiCharSequence implements CharSequence {
     public char charAt(int index) {
         return (char)b[index];
     }
-
-
-
-
-
 
 }
 

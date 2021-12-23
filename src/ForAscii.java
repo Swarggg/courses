@@ -16,6 +16,7 @@ public class ForAscii {
         System.out.println("Вывод aascii length: "+aascii.length());
         System.out.println("Вывод aascii toString: "+aascii.toString());
         System.out.println("Вывод aascii charAt: "+aascii.charAt(3));
+        System.out.println("Вывод aascii subSequance: "+aascii.subSequence(1, 3));
     }
 
 }
