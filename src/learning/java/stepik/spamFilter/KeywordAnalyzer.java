@@ -1,21 +1,16 @@
 package learning.java.stepik.spamFilter;
 
-
     abstract class KeywordAnalyzer implements TextAnalyzer {
-        private String[] keywords;
-        Label label;
 
-        protected Label getLabel() {
-            return this.label;
-        }
+        protected abstract Label getLabel();
 
-        protected String[] getKeywords() {
-            return this.keywords;
-        }
+        protected abstract String[] getKeywords();
 
         @Override
         public Label processText(String text) {
-            return label;
-
+            for (int i=0; i< getKeywords().length; i++ ) {
+                if (text.contains(getKeywords()[i])) { return getLabel();}
+            }
+            return Label.OK;
         }
     }

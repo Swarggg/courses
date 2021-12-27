@@ -1,13 +1,19 @@
 package learning.java.stepik.spamFilter;
 
+import java.util.Arrays;
+
 class NegativeTextAnalyzer extends KeywordAnalyzer {
-    public String[] keywords = {":(", "=(", ":|"};
-    private Label label = Label.NEGATIVE_TEXT;
+    private String[] keywords = {":(", "=(", ":|"};
+    private Label label =Label.NEGATIVE_TEXT;
 
-    @Override
-    public Label processText(String text) {
 
-        return label;
+
+    protected String[] getKeywords() {
+        return this.keywords;
+    }
+
+    protected Label getLabel() {
+        return this.label;
     }
 
 }
