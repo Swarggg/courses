@@ -1,26 +1,25 @@
 package learning.java.stepik.exceptions;
 
-public class ResExceptions {
-     class A {
-        Byte a;
+public class ResExceptions{
 
-        public void setA(byte a) {
-            this.a = a;
-        }
-
-        public Byte getA() {
-            return a;
-        }
-    }
-
-    class B extends A {
-        Byte a;
-
-
-    }
-
-
-   A a = new A();
-
-     a = (A) b;
+static class A extends B {
+    byte a;
 }
+
+
+static class B  {
+    byte b;
+
+}
+
+    public static void main(String[] args) {
+        //A a = new A();
+       B b = new B();
+         A a = (A) b;
+    }
+
+
+
+}
+
+
