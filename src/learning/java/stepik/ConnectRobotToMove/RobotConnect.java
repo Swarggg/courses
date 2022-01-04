@@ -1,7 +1,7 @@
 package learning.java.stepik.ConnectRobotToMove;
 
 
-
+/*
 
 public class RobotConnect implements RobotConnection, RobotConnectionManager{
    int robotNowInX = 0;
@@ -63,3 +63,4 @@ public class RobotConnect implements RobotConnection, RobotConnectionManager{
 }
 
 
+*/

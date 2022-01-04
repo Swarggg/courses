@@ -4,6 +4,7 @@ public class CallerMethod {
     public static void main(String[] args) {
         System.out.println(getCallerClassAndMethodName());
         anotherMethod();
+        //System.out.println(CallerMethod.class.getName());
     }
 
 
@@ -29,4 +30,5 @@ public class CallerMethod {
 
         return null;
     }
+
 }
