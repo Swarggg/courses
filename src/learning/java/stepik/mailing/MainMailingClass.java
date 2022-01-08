@@ -13,6 +13,10 @@ public class MainMailingClass {
     public  static  final Logger LOGGER = Logger.getLogger(MainMailingClass.class.getName());
 
     public interface Sendable {
+        /*
+        Интерфейс: сущность, которую можно отправить по почте.
+        У такой сущности можно получить от кого и кому направляется письмо.
+        */
         String getFrom();
         String getTo();
     }
@@ -57,35 +61,6 @@ public class MainMailingClass {
         }
     }
 
-    public static class MailPackage extends AbstractSendable{
-        /*
-        Посылка, содержимое которой можно получить с помощью метода `getContent`
-        */
-        private final Package content;
-
-        public MailPackage(String from, String to, Package content) {
-            super(from, to);
-            this.content = content;
-        }
-
-        public Package getContent() {
-            return content;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            if (!super.equals(o)) return false;
-
-            MailPackage that = (MailPackage) o;
-
-            if (!content.equals(that.content)) return false;
-
-            return true;
-        }
-    }
-
     public static class MailMessage  extends AbstractSendable{
         /*
         Письмо, у которого есть текст, который можно получить с помощью метода `getMessage`
@@ -114,6 +89,35 @@ public class MainMailingClass {
             return true;
         }
 
+    }
+
+    public static class MailPackage extends AbstractSendable{
+        /*
+        Посылка, содержимое которой можно получить с помощью метода `getContent`
+        */
+        private final Package content;
+
+        public MailPackage(String from, String to, Package content) {
+            super(from, to);
+            this.content = content;
+        }
+
+        public Package getContent() {
+            return content;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
+
+            MailPackage that = (MailPackage) o;
+
+            if (!content.equals(that.content)) return false;
+
+            return true;
+        }
     }
 
     public static class Package {
@@ -154,7 +158,6 @@ public class MainMailingClass {
     /*
     Класс, в котором скрыта логика настоящей почты
     */
-
         @Override
         public Sendable processMail(Sendable mail) {
             // Здесь описан код настоящей системы отправки почты.
@@ -162,32 +165,38 @@ public class MainMailingClass {
         }
     }
 
+//--------------------------U N T R U S T------------------------------------//
+    public static class UntrustworthyMailWorker implements MailService {
 
-    public static class UntrustworthyMailWorker {
-        private MailService[] allMail=null;
+        MailService[] allAgents;
+        Logger LOGGER1 = null;
 
-        private UntrustworthyMailWorker (MailService[] allMail){
-        this.allMail=allMail;
+        Spy spy = new Spy(LOGGER1);
+        Thief thief = new Thief(1000);
+        RealMailService realMailService = new RealMailService();
+
+        //constructor
+        private UntrustworthyMailWorker (MailService[]/*так по условию*/ allAgents ){
+        this.allAgents=allAgents;
         }
 
-        public void mailing () {
+        @Override
+        public Sendable processMail (Sendable mail) {
 
-            for (MailService i: allMail) {
+          Sendable  mailed = realMailService.processMail(thief.processMail(spy.processMail(mail)));
+            return mailed;
+        }
 
-                //spy.spyingMail(i);
-                //thief.thiefStealing(i);
-               // inspector.insp(i);
+        public RealMailService getRealMailService () {
 
-            }
-
+            return realMailService;
         }
 
     }   //UntrustworthyMailWorker closing
-
+//---------------------------S P Y------------------------------------//
     public static class Spy implements MailService {
 
-    private MailMessage message = null;
-    private Logger spyLogger= null;
+    private Logger spyLogger;
 
     //constructor
     public Spy (Logger LOGGER) {
@@ -197,34 +206,41 @@ public class MainMailingClass {
         @Override
         public Sendable processMail(Sendable mail) {
             //массив для подстановки его элементов в сообщения ЛОГГЕРА по индексу элемента
-            //Object[] insert= new Object[] {mail.getFrom(), mail.getTo()};
 
-            if (mail.getFrom().equals(AUSTIN_POWERS)) {spyLogger.log(Level.WARNING, "Detected target mail correspondence: from {0} to {1} \"message??????\"", new Object[] {mail.getFrom(), mail.getTo()});}
-            else {spyLogger.log(Level.INFO, "Usual correspondence: from {0} to {1}", new Object[] {mail.getFrom(), mail.getTo()});}
+            if (mail instanceof MailMessage) {
+                Object[] insert= new Object[] {mail.getFrom(), mail.getTo(), ((MailMessage) mail).getMessage()};
+                if (mail.getFrom().equals(AUSTIN_POWERS)) {spyLogger.log(Level.WARNING, "Detected target mail correspondence: from {0} to {1} \"{2}\"", insert);}
+                else {spyLogger.log(Level.INFO, "Usual correspondence: from {0} to {1}", new Object[] {mail.getFrom(), mail.getTo()});}
+            }
             return mail;
         }
-    }//Spy closing
 
-    public static class Thief {
+    }//Spy closing
+//---------------------------T H I E F--------------------------------//
+    public static class Thief implements MailService {
 
     private int mustSteal;
-    private int allStolenCost=0;
-    public Package stealedPackage;
+    private int allStolenCost;
 
     //constructor
     public Thief (int mustSteal) {
         this.mustSteal=mustSteal;
     }
 
-    public Package thiefStealing (Package stealingPackage) {
+    @Override
+    public Sendable processMail(Sendable mail) {
 
-        if(stealingPackage.getPrice()>=mustSteal) {
-            allStolenCost+=stealingPackage.getPrice();
+        if (mail instanceof MailPackage) {
 
-            stealedPackage=new Package("stones instead of "+stealingPackage.getContent(), 0);
+            if (((MailPackage) mail).getContent().getPrice() >= mustSteal) {
+                allStolenCost += ((MailPackage)mail).getContent().getPrice();
+                Package thiefedPackage = new Package("stones instead of " + ((MailPackage) mail).getContent().getContent(), 0);
+                MailPackage thiefedMail = new MailPackage (mail.getFrom(),  mail.getTo(), thiefedPackage);
+                return thiefedMail;
+            }
 
         }
-        return stealedPackage;
+        return mail;
     }
 
     public int getStolenValue () {
@@ -240,25 +256,48 @@ public class MainMailingClass {
 /// M A I N ////
 
     //MailPackage firstPackage = new MailPackage());
+
+    public static Package justPackage1 = new Package(WEAPONS,900);
+    public static Package justPackage2 = new Package(WEAPONS,2000);
+    public static Package justPackage3 = new Package("Fruits",100);
+
+    public static MailPackage jp1 = new MailPackage("Queen", PENTAGON, justPackage1);
+    public static MailPackage jp2 = new MailPackage("Queen", PENTAGON, justPackage2);
+
+
     public static MailMessage firstLetter = new MailMessage(AUSTIN_POWERS, PENTAGON, "You all gonna die");
     public static MailMessage secondLetter = new MailMessage(BOB_ITKINS, PENTAGON, "All products are delivered");
 
 
-    public static Package justPackage1 = new Package(WEAPONS,10000);
-    public static Package justPackage2 = new Package(WEAPONS,20000);
-    public static Package justPackage3 = new Package(WEAPONS,1000);
+    //public static Sendable[] mail = {firstLetter, secondLetter};
     //public static MailPackage firstPackage = new MailPackage("Queen", PENTAGON, justPackage);
 
-    public static Spy spy = new Spy(LOGGER);
-    public static Thief thief = new Thief(10000);
+
+    //public static RealMailService realMailService = new RealMailService();
+
+   public static Spy spy = new Spy(LOGGER);
+    public static  Thief thief = new Thief(1000);
 
 
 
     public static void main(String[] args) {
 
+        MailService[] allAgents={spy, thief};
 
-    spy.processMail(secondLetter);
-        spy.processMail(firstLetter);
+        Sendable[] mail = {firstLetter, secondLetter, jp1, jp2};
+
+        UntrustworthyMailWorker untrustworthyMailWorker = new UntrustworthyMailWorker(allAgents);
+
+        for (Sendable m : mail) {
+            untrustworthyMailWorker.processMail(m);
+            System.out.println("Это было "+m.getClass()+" From: "+m.getFrom()+" To: "+m.getTo());
+        }
+
+
+
+
+   // spy.processMail(secondLetter);
+       // spy.processMail(firstLetter);
    // thief.thiefStealing(justPackage1);
    // thief.thiefStealing(justPackage2);
     //thief.thiefStealing(justPackage3);
