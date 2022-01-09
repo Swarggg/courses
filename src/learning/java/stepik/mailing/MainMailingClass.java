@@ -169,11 +169,12 @@ public class MainMailingClass {
     public static class UntrustworthyMailWorker implements MailService {
 
         MailService[] allAgents;
-        Logger LOGGER1 = null;
+        //Logger LOGGER1 = null;
 
-        Spy spy = new Spy(LOGGER1);
+        //Spy spy = new Spy(LOGGER1);
         Thief thief = new Thief(1000);
         RealMailService realMailService = new RealMailService();
+        Inspector inspector = new Inspector();
 
         //constructor
         private UntrustworthyMailWorker (MailService[]/*так по условию*/ allAgents ){
@@ -183,8 +184,11 @@ public class MainMailingClass {
         @Override
         public Sendable processMail (Sendable mail) {
 
-          Sendable  mailed = realMailService.processMail(thief.processMail(spy.processMail(mail)));
-            return mailed;
+          for (MailService m : allAgents){
+              m.processMail(mail);
+          }
+          realMailService.processMail(mail);
+            return mail;
         }
 
         public RealMailService getRealMailService () {
@@ -208,9 +212,9 @@ public class MainMailingClass {
             //массив для подстановки его элементов в сообщения ЛОГГЕРА по индексу элемента
 
             if (mail instanceof MailMessage) {
-                Object[] insert= new Object[] {mail.getFrom(), mail.getTo(), ((MailMessage) mail).getMessage()};
-                if (mail.getFrom().equals(AUSTIN_POWERS)) {spyLogger.log(Level.WARNING, "Detected target mail correspondence: from {0} to {1} \"{2}\"", insert);}
-                else {spyLogger.log(Level.INFO, "Usual correspondence: from {0} to {1}", new Object[] {mail.getFrom(), mail.getTo()});}
+                Object[] insert= new Object[] {((MailMessage) mail).getFrom(), ((MailMessage) mail).getTo(), ((MailMessage) mail).getMessage()};
+                if (mail.getFrom().equals(AUSTIN_POWERS) || mail.getTo().equals(AUSTIN_POWERS)) {spyLogger.log(Level.WARNING, "Detected target mail correspondence: from {0} to {1} \"{2}\"", insert);}
+                else {spyLogger.log(Level.INFO, "Usual correspondence: from {0} to {1}", insert);}
             }
             return mail;
         }
@@ -235,6 +239,7 @@ public class MainMailingClass {
             if (((MailPackage) mail).getContent().getPrice() >= mustSteal) {
                 allStolenCost += ((MailPackage)mail).getContent().getPrice();
                 Package thiefedPackage = new Package("stones instead of " + ((MailPackage) mail).getContent().getContent(), 0);
+                //LOGGER.log(Level.INFO, "Я украл "+((MailPackage)mail).getContent().getPrice());
                 MailPackage thiefedMail = new MailPackage (mail.getFrom(),  mail.getTo(), thiefedPackage);
                 return thiefedMail;
             }
@@ -249,7 +254,41 @@ public class MainMailingClass {
 
     }//Thief closing
 
-    public static class  Inspector {
+
+//------------------------E x c e n t i o n s--------------------------//
+    public static class IllegalPackageException extends RuntimeException {
+        public IllegalPackageException (String message) {
+
+        }
+    }
+
+    public static class StolenPackageException extends RuntimeException {
+        public StolenPackageException (String message) {
+
+        }
+    }
+
+//----------------------------I N S P E C T O R-------------------------//
+    public static class  Inspector implements MailService{
+
+    @Override
+    public Sendable processMail (Sendable mail) {
+
+    if (mail instanceof MailPackage) {
+        if (((MailPackage) mail).getContent().getContent().equals(WEAPONS)||
+        ((MailPackage) mail).getContent().getContent().equals(BANNED_SUBSTANCE))
+        {
+           // throw new IllegalPackageException ("here we have weapons");
+            //LOGGER.log(Level.INFO, "Inspector detect weapon");
+        }
+
+        if (((MailPackage) mail).getContent().getContent().contains("stones")) {
+            // throw new StolenPackageException("here we have weapons stones");
+        }
+    }
+        return mail;
+    }
+
 
     }// Inspector closing
 
