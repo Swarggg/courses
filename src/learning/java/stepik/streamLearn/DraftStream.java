@@ -5,20 +5,32 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DraftStream {
-    static String inputFile = "G:\\IntelliJ\\HelloWorld\\src\\learning\\java\\stepik\\streamLearn\\SimpleTextFileSource";
-    static String outputFile = "G:\\IntelliJ\\HelloWorld\\src\\learning\\java\\stepik\\streamLearn\\SimpleTextFileTarget";
+    static String inputFile = "src\\learning\\java\\stepik\\streamLearn\\SimpleTextFileSource";
+    static String outputFile = "src\\learning\\java\\stepik\\streamLearn\\SimpleTextFileTarget";
 
     public static void main(String[] args) throws IOException {
+
+        copyFileContent(inputFile, outputFile);
+        copyFileContent(inputFile, outputFile);
+
+    }// main close
+
+    static void copyFileContent (String inputFile, String outputFile) throws IOException {
         try (FileInputStream fis = new FileInputStream(inputFile);
              FileOutputStream fos = new FileOutputStream(outputFile)){
 
             byte[] byteBuffer1 = fis.readAllBytes();
-            byte[] byteBuffer2 = { 0b00100000/*space, bin*/, 35/*#, dec*/,  0x21/*!, hex*/};
+            //byte[] byteBuffer2 = { 0b00100000/*space, bin*/, 35/*#, dec*/, 040/*space, oct(start from 0)*/, 0x21/*!, hex*/};
 
             fos.write(byteBuffer1);
-            fos.write(byteBuffer2);
+            System.out.println("file content is copied");
+            //fos.write(byteBuffer2);
 
         }
+
+
+
+
     }
 
-}
+}// DraftStream close
