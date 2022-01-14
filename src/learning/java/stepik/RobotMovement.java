@@ -1,3 +1,5 @@
+package learning.java.stepik;
+
 public class RobotMovement {
 
     public static void main(String[] args) {

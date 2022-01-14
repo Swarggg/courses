@@ -1,4 +1,4 @@
-import java.util.Arrays;
+package learning.java.stepik.achii;
 
 public class AsciiCharSequence implements CharSequence {
 

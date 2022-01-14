@@ -1,3 +1,5 @@
+package learning.java.stepik;
+
 public class factorial {
     public static void main(String[] args) {
         int b=6;

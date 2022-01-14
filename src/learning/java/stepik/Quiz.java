@@ -1,3 +1,5 @@
+package learning.java.stepik;
+
 import java.security.MessageDigest;
 
 public class Quiz {

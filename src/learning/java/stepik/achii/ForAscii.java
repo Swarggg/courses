@@ -1,4 +1,5 @@
-import java.lang.reflect.Array;
+package learning.java.stepik.achii;
+
 import java.util.Arrays;
 
 public class ForAscii {

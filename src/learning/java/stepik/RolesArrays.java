@@ -1,3 +1,5 @@
+package learning.java.stepik;
+
 import java.util.Arrays;
 
 public class RolesArrays {
