@@ -24,9 +24,10 @@ public class DraftStream {
         }
     }
 
+
     static InputStream getInputStream2 (String inputFile, String outputFile) throws IOException {
-        byte[] is = {0x33, 0x45, 0x01};
-        InputStream inputStream = new ByteArrayInputStream(is);
+        byte[] testByteMassive = {0x33, 0x45, 0x01};
+        InputStream inputStream = new ByteArrayInputStream(testByteMassive);
             return inputStream;
     }
 
@@ -40,7 +41,7 @@ public class DraftStream {
                 System.out.println("OcheckSum ="+checkSum);
             }
 
-        } catch (IOException io) {
+        } catch (IOException ioe) {
             throw new IOException();
         }
         return checkSum;
