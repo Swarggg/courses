@@ -16,14 +16,14 @@ public class DraftStream {
 
     }// main close
 
-
+/*
     static InputStream getInputStream (String inputFile, String outputFile) throws IOException {
         try (FileInputStream fis = new FileInputStream(inputFile)){
             InputStream inputStream = new FileInputStream(inputFile);
             return inputStream;
         }
     }
-
+*/
 
     static InputStream getInputStream2 (String inputFile, String outputFile) throws IOException {
         byte[] testByteMassive = {0x33, 0x45, 0x01};

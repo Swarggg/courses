@@ -54,29 +54,35 @@ public class HelloWorld {
         System.out.println("x+y="+(x+y));
         System.out.println("z="+Math.abs(z));
 */
-        Car car = new Car();
+
 
        public static void main(String[] args) {
 
 
            System.out.println("bla");
 
-           Djiga.startEngine();
-           Car.startEngine();
+           //Djiga.startEngine();
+           //Car.startEngine();
+
+           Car car = new Car();
+           Djiga djiga = new Djiga();
+
+           djiga.headLights();
+           djiga.startEngine();
+           car.startEngine();
 
           // car.headLights();
 
        }
 
 
+    public static class Djiga extends Car {
+        public void  startEngine () {
+            System.out.println("Врум как Жига");
 
-
-        public static class Djiga extends Car {
-            public static void  startEngine () {
-                System.out.println("Врум как Жига");
-
-            }
         }
+    }
 
 
 }
+

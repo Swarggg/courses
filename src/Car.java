@@ -1,6 +1,6 @@
 public class Car {
 
-    public static void startEngine() {
+    public void startEngine() {
 
      System.out.println("типичное ВРУМ-ВРУМ");
 
