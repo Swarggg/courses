@@ -1,39 +1,31 @@
 package learning.java.stepik.streamLearn;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class Main {
 
-        public static void main (String[] args) throws IOException, InterruptedException {
-            int flag= 0;
+        public static void main (String[] args) throws IOException {
+            int k= 107;
+            int l= 108;
+
+            int previous=0;
             int readed=0;
-            int previsius=0;
 
+            readed = System.in.read();
             while (true) {
+                previous=readed;
                readed = System.in.read();
+                if (previous==k&readed==l) {
+                    continue;
+                }
+                else {
+                   System.out.write(previous);
 
-               if (previsius==0) {
-                   System.out.println("prev=0");
-                   previsius = readed;
-               } else {
-                   if (previsius==107&readed==108) {
-                       System.out.write(readed);
-                   } else {
-                       System.out.write(previsius);
-                       System.out.write(readed);
-                       previsius = readed;
-                   }
+                }
 
-               }
-
-            }
+            } //while close
 
         }
-
-
 }
 
 
