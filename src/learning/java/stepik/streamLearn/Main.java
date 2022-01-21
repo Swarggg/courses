@@ -1,31 +1,12 @@
 package learning.java.stepik.streamLearn;
+/*
+Напишите программу, читающую текст из System.in и выводящую в System.out сумму всех встреченных
+ в тексте вещественных чисел с точностью до шестого знака после запятой.
+ Числом считается последовательность символов, отделенная от окружающего текста пробелами или
+  переводами строк и успешно разбираемая методом Double.parseDouble.
+* */
 
-import java.io.IOException;
 
 public class Main {
 
-        public static void main (String[] args) throws IOException {
-            int k= 107;
-            int l= 108;
-
-            int previous=0;
-            int readed=0;
-
-            readed = System.in.read();
-            while (true) {
-                previous=readed;
-               readed = System.in.read();
-                if (previous==k&readed==l) {
-                    continue;
-                }
-                else {
-                   System.out.write(previous);
-
-                }
-
-            } //while close
-
-        }
 }
-
-
