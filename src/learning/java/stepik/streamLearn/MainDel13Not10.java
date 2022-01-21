@@ -2,7 +2,7 @@ package learning.java.stepik.streamLearn;
 
 import java.io.IOException;
 
-public class Main1 {
+public class MainDel13Not10 {
 
         public static void main (String[] args) throws IOException {
             int k= 107;

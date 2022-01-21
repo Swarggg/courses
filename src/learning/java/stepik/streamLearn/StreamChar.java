@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 
 public class StreamChar {
 
-   static byte[] testByteArray1 = {01, 117, 50, 51};
+   static byte[] testByteArray1 = {49, 117, 50, 51};
    static InputStream inputStream = new ByteArrayInputStream(testByteArray1);
    static Charset charset1 = StandardCharsets.UTF_8;
    static Charset charset2 = StandardCharsets.UTF_16BE;
@@ -16,6 +16,7 @@ public class StreamChar {
        StringBuilder resulString=new StringBuilder();
        int buffer;
        InputStreamReader inputStreamReader= new InputStreamReader(inputStream, charset);
+
 
         while ((buffer=inputStreamReader.read())!=-1) {
             System.out.println("bukvi="+(char)buffer);
