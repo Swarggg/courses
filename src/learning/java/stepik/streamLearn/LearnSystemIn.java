@@ -4,10 +4,14 @@ import java.io.*;
 
 public class LearnSystemIn {
 
-    public static InputStream getInputStream () {
+    public static InputStream getInputStream () throws IOException {
         byte[] testInputMassive= {65, 13, 10, 10, 13, 24, 45, 13, 10, 45}; //В System.out должны быть выведены байты: 65 10 10 13
         InputStream inputStream = new ByteArrayInputStream (testInputMassive);
         return inputStream;
+
+       // InputStream is = new ByteArrayInputStream (testInputMassive);
+
+
     }
 
         public static void main (String[] args) throws IOException {

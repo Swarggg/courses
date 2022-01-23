@@ -11,10 +11,9 @@ package learning.java.stepik.streamLearn;
 
 
 import java.io.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class MainSumDouble {
     static byte[] byteArr1 = {49, 32, 50, 32, 51, 10}; //1 2 3  Output 1: 6.000000
     static byte[] byteArr2 = {97, 49, 32, 98, 50, 32, 99, 51, 10}; //a1 b2 c3 Output 2: 0.000000
     static byte[] byteArr3 = {45, 49, 101, 51, 10, 49, 56, 32, 46, 49, 49, 49, 32, 49, 49, 98, 98, 98};
