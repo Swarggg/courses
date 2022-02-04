@@ -1,3 +1,6 @@
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
 /**
  * A programm that print "bla"
  * @author SwarG
@@ -12,77 +15,69 @@ public class HelloWorld {
 
         boolean bool = ((a^b)&(c^d))|((a^c)&(d^b));
 
-
-        boolean e = a^b;
-        System.out.println("a^b "+e);
-        boolean f = c^d;
-        System.out.println("c^d "+f);
-
-        System.out.println();
-
-        boolean g= a&b;
-        System.out.println("a&b "+g);
-        boolean h= c&d;
-        System.out.println("c&d "+h);
-
-        System.out.println();
-
-        boolean i = e&f;
-        System.out.println("a^b & c^d "+i);
-        boolean j = g^h;
-        System.out.println("a&b ^ c&d "+j);
-
-        System.out.println();
-
-        boolean cool = i^j;
-
-        System.out.println("bool = "+bool);
-        System.out.println("cool = "+cool);
-
-        double x, y,z;
-
-        x=1E-1;
-        y=0.2;
-        z=0.3;
-
-        x=Math.abs(x);
-        y=Math.abs(y);
-
-        z=x+y;
-
-        System.out.println(x);
-        System.out.println("x+y="+(x+y));
-        System.out.println("z="+Math.abs(z));
 */
 
 
        public static void main(String[] args) {
 
-
-           System.out.println("bla");
-
-           //Djiga.startEngine();
-           //Car.startEngine();
-
            Car car = new Car();
+           Car car2 = new Car();
            Djiga djiga = new Djiga();
 
+
+
+           //output bla
+           System.out.println("bla");
+
+           //use functional interface & lambda
+           Predicate pre = t-> t==car.getType();
+
+           String n= djiga.type;
+           if(pre.test(n)) {
+               System.out.println("Это жига");
+           } else System.out.println("Это не жига");
+
+           //use functional interface & lambda
+           Supplier sup = ()->car.getCarCount();
+           System.out.println(sup.get()+" car are prodused at all");
+
+            //????
            djiga.headLights();
-           djiga.startEngine();
+
+           //use parent method
            car.startEngine();
 
-          // car.headLights();
+           //use override method
+           djiga.startEngine();
 
+
+
+           System.out.println("Vin car = "+car.getVinNumber());
+
+           System.out.println("Vin car 2 = "+car2.getVinNumber());
+
+           System.out.println("Vin= djiga = "+djiga.getVinNumber()+". It is a "+Djiga.getCarCount()+" of produced car");
+
+           //use ternary operator
+           int k = 0;
+           for (int i=1; i<5; i++) {
+               System.out.print("i="+i+" ");
+                k = i<3 ? i : 0;
+               System.out.println("k="+k);
+           }
        }
 
 
     public static class Djiga extends Car {
+
+
+        public String type = "Djiga";
+
         public void  startEngine () {
             System.out.println("Врум как Жига");
-
         }
-    }
 
+     }
 
 }
 

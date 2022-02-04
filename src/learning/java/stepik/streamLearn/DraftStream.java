@@ -1,6 +1,9 @@
 package learning.java.stepik.streamLearn;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 
 public class DraftStream {
     static String inputFile = "src\\learning\\java\\stepik\\streamLearn\\SimpleTextFileSource";
