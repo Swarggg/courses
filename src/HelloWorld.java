@@ -65,6 +65,14 @@ public class HelloWorld {
                 k = i<3 ? i : 0;
                System.out.println("k="+k);
            }
+
+           System.out.print(1.0/0.0);
+           System.out.println(Math.sqrt(-2.0));
+
+
+
+
+
        }
 
 
