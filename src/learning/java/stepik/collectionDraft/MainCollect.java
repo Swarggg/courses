@@ -2,6 +2,7 @@ package learning.java.stepik.collectionDraft;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -74,27 +75,29 @@ public class MainCollect {
 
 
     public static void main(String[] args) {
-/*
-         List<User> users1 = new ArrayList<>();
-                users1.add(new User(21, "Vasya", Role.USER));
 
-                new User(1, "Admin", Role.ADMIN),
-                new User(123, "Pupik", Role.GUEST),
-                new User(234, "Lupik", Role.GUEST),
-                new User(2342, "Dupik", Role.GUEST),
-                new User(2342, "Mupik", Role.GUEST)
-
-
-        System.out.println(users1.size());
-        User u1 = (User) users1.get(0);
-
-        String k =(String) u1.getName();
+         List<String> usersNames = new ArrayList<>();
+                usersNames.add("Vasya");
+                usersNames.add("Valoba");
+                usersNames.add("Lasya");
+                usersNames.add("Biba");
+                usersNames.add("Boba");
+                usersNames.add("Bobb");
 
 
-        System.out.println("k="+k);
 
 
-             */
+        System.out.println(usersNames.size());
+        System.out.println("Source usersNames: "+usersNames);
+
+        Stream<String> usNaStrm = usersNames.stream();
+
+        Stream<String> sortedUsNaStrm = usNaStrm.sorted()
+                .filter(n->n.contains("ob"));
+
+        System.out.print("Sorted stream: ");
+        sortedUsNaStrm.forEach(n-> System.out.print(n + " "));
+
 
     }
 
