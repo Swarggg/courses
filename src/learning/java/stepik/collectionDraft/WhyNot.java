@@ -34,7 +34,7 @@ public class WhyNot {
         List<UserIn> listA = new ArrayList<>();
         listA.add(new UserIn(23,"Admin",Role.ADMIN));
 
-        UserIn element1 =  listA.get(0);
+        //UserIn element1 =  listA.get(0);
 
         String name = listA.get(0).getName();
         System.out.println("name = "+ name);
@@ -44,10 +44,10 @@ public class WhyNot {
         List<String> listB = new ArrayList<>();
         listB.add("fooooorik");
 
-        String firstEl= listB.get(0);
+        //String firstEl= listB.get(0);
 
         int length = listB.get(0).length();
-        System.out.println("firstEl = "+firstEl+" and length = "+length);
+        System.out.println("length = "+length);
 
     }
 
