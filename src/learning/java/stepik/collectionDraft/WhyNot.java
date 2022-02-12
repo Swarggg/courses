@@ -36,7 +36,8 @@ public class WhyNot {
 
         UserIn element1 =  listA.get(0);
 
-        System.out.println("el1 = "+ element1.getName());
+        String name = listA.get(0).getName();
+        System.out.println("name = "+ name);
 
 
 //listB
