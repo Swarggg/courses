@@ -13,6 +13,9 @@ public class WhyNot {
         private Role role;
 
         UserIn (int id, String name, Role role) {
+            this.id=id;
+            this.name=name;
+            this.role=role;
         }
 
         public int getId() {

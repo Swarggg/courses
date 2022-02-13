@@ -93,7 +93,11 @@ public class MainCollect {
         Stream<String> usNaStrm = usersNames.stream();
 
         Stream<String> sortedUsNaStrm = usNaStrm.sorted()
-                .filter(n->n.contains("ob"));
+                .filter(n->n.contains("o"))
+                .filter(n->n.length()==6)
+                ;
+
+
 
         System.out.print("Sorted stream: ");
         sortedUsNaStrm.forEach(n-> System.out.print(n + " "));

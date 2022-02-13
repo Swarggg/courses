@@ -6,6 +6,7 @@ public class User {
     private Role role;
 
     User (int id, String name, Role role) {
+
     }
 
     public int getId() {
