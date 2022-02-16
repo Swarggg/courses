@@ -14,8 +14,8 @@ public class MainCollect {
             new User(1, "Admin", Role.ADMIN),
             new User(123, "Pupik", Role.GUEST),
             new User(234, "Lupik", Role.GUEST),
-            new User(2342, "Dupik", Role.GUEST),
-            new User(2342, "Mupik", Role.GUEST)
+            new User(23052, "Dupik", Role.GUEST),
+            new User(23942, "Mupik", Role.GUEST)
     );
 
     public  void testOldCollection_Java7() {
@@ -36,41 +36,28 @@ public class MainCollect {
             }
         }
 
-        Collections.sort (guestsFromUsers, new Comparator<User>() {
-            @Override
-            public int compare (User u1, User u2) {
-                return Long.compare(u2.getId(), u1.getId());
-            }
-        });
-
     } //testOldCollection closing
 
 
-    public void testCollection_Java8 () {
-
-        List<User> usr = Arrays.asList(
-                new User(21, "Vasya", Role.USER),
-                new User(1, "Admin", Role.ADMIN),
-                new User(123, "Pupik", Role.GUEST),
-                new User(234, "Lupik", Role.GUEST),
-                new User(2342, "Dupik", Role.GUEST)
-        );
+    public static void testCollection_Java8 (List<User> users) {
+        System.out.println("Results of testCollection_Java8:");
+        System.out.println("users size: "+users.size());
 
 
-        User dude= usr.get(0);
-        System.out.println("name 1 ="+dude.getName());
+        //ArrayList<User> namesOfGuestsSRM =
+        users.stream()
+                //.filter(user -> user.getRole()==Role.GUEST)
+                // .sorted((obj1, obj2) -> Integer.compare(obj1.getId(), obj2.getId()))
+                //.map(user -> user.getName());
+                .forEach(a->{
+                    System.out.println (a.getName()+":"+ a.getId());
+                });
 
 
 
-        List<User> namesOfGuests = usr.stream()
-                .filter(user -> user.getRole()==Role.GUEST)
-               // .sorted((obj1, obj2) -> Integer.compare(obj1.getId(), obj2.getId()))
-               // .map(user -> user.getName())
-                .collect(Collectors.toList());
 
-        int size = namesOfGuests.size();
-        System.out.println("size="+size);
 
+        System.out.println("namesOfGuests size: ");
     }
 
 
@@ -98,9 +85,14 @@ public class MainCollect {
                 ;
 
 
-
         System.out.print("Sorted stream: ");
         sortedUsNaStrm.forEach(n-> System.out.print(n + " "));
+        System.out.println(" ");
+
+        System.out.println("==========================================================");
+        testCollection_Java8(users);
+
+        System.out.println("==========================================================");
 
 
     }

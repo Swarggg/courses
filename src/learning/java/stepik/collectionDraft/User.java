@@ -6,7 +6,9 @@ public class User {
     private Role role;
 
     User (int id, String name, Role role) {
-
+        this.id=id;
+        this.name=name;
+        this.role=role;
     }
 
     public int getId() {
