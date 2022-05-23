@@ -1,9 +1,12 @@
 package learning.java.stepik.collectionDraft;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.summarizingDouble;
 import static java.util.stream.Collectors.toList;
 
 public class MainCollect {
@@ -11,6 +14,7 @@ public class MainCollect {
     //data
     static List<User> users = Arrays.asList(
             new User(21, "Vasya", Role.USER),
+            new User(31, "Darya", Role.USER),
             new User(1, "Admin", Role.ADMIN),
             new User(123, "Pupik", Role.GUEST),
             new User(234, "Lupik", Role.GUEST),
@@ -44,20 +48,28 @@ public class MainCollect {
         System.out.println("users size: "+users.size());
 
 
-        //ArrayList<User> namesOfGuestsSRM =
-        users.stream()
-                //.filter(user -> user.getRole()==Role.GUEST)
+        long namesOfGuestsSRM =users.stream()
+                .filter(user -> user.getRole()==Role.GUEST)
                 // .sorted((obj1, obj2) -> Integer.compare(obj1.getId(), obj2.getId()))
-                //.map(user -> user.getName());
-                .forEach(a->{
-                    System.out.println (a.getName()+":"+ a.getId());
-                });
+                .map(user -> user.getName())
+                //.collect(Collectors.toList())
+                .count()
+                ;
 
+        System.out.println("namesOfGuests size: "+namesOfGuestsSRM);
 
+        users.stream()
+                .filter(u->u.getRole()==Role.USER)
+                .map(u->u.getName()+":"+u.getId())
+                .forEach(System.out::println);
 
+        System.out.println("List sorted by ID:");
+        users.stream()
+                //.sorted()
+                .map(n->n.getName())
+                .forEach(n->System.out.print(n+" "));
+        System.out.println();
 
-
-        System.out.println("namesOfGuests size: ");
     }
 
 
@@ -70,8 +82,6 @@ public class MainCollect {
                 usersNames.add("Biba");
                 usersNames.add("Boba");
                 usersNames.add("Bobb");
-
-
 
 
         System.out.println(usersNames.size());
